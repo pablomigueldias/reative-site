@@ -26,7 +26,7 @@ export const methodSteps: MethodStep[] = [
     num: '01',
     title: 'Diagnóstico',
     description:
-      'Conversa de 30 min pra entender seu negócio, gargalos e prioridades. Sem custo, sem compromisso.',
+      'Conversa de 30 min para entender seu negócio, identificar oportunidades de melhoria e definir prioridades. Sem custo e sem compromisso.',
     duration: '30 min · gratuito',
   },
   {
