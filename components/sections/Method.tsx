@@ -10,9 +10,9 @@ export function Method(): JSX.Element {
             <h2>Sem surpresa, sem caixa-preta. Só método.</h2>
           </div>
           <p className="lede">
-            Empresa de tecnologia tem fama de complicar e cobrar caro. A gente
-            trabalha do outro jeito: tudo escrito, tudo combinado, e você
-            acompanha o avanço todo dia.
+            Muitas empresas de tecnologia complicam processos e tornam tudo mais difícil do que precisa ser. 
+            Trabalhamos de forma transparente, objetiva e próxima do cliente: tudo alinhado, 
+            tudo organizado e com acompanhamento constante de cada etapa do projeto.
           </p>
         </div>
         <div className="method-grid">

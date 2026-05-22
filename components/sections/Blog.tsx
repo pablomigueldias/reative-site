@@ -9,12 +9,11 @@ export function Blog(): JSX.Element {
         <div className="section-head">
           <div>
             <span className="eyebrow">Conteúdo direto ao ponto</span>
-            <h2>Tecnologia explicada como dono de PME entende.</h2>
+            <h2>Tecnologia de forma simples, clara e pensada para a realidade do seu negócio.</h2>
           </div>
           <p className="lede">
-            Sem jargão, sem &quot;cloud disruptivo&quot;. Texto curto, exemplo
-            real, direto pra quem precisa decidir entre investir em sistema novo
-            ou continuar fazendo na mão.
+           Sem termos complicados ou promessas exageradas. Conteúdo direto, com exemplos reais, 
+           para quem precisa decidir entre investir em tecnologia ou continuar fazendo tudo manualmente.
           </p>
         </div>
         <div className="blog-grid">
