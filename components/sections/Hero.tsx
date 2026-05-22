@@ -67,8 +67,7 @@ export function Hero(): JSX.Element {
               <div className="hero-card-eyebrow">// começo gratuito</div>
               <h3>Diagnóstico inicial sem custo</h3>
               <p>
-                Em 30 minutos, mapeamos os gargalos de tecnologia do seu negócio
-                e mostramos por onde começar — mesmo que você não contrate.
+                Em 30 minutos, identificamos oportunidades de melhoria e mostramos como a tecnologia pode impulsionar o crescimento do seu negócio — mesmo que você não contrate.
               </p>
               <div className="hero-channels">
                 <a href="#agendar" className="hero-channel">

@@ -8,7 +8,7 @@ export function About(): JSX.Element {
           <div>
             <span className="eyebrow">Quem somos</span>
             <h2>
-              Um time pequeno, próximo, e que sabe onde aperta o sapato da PME.
+              Uma equipe próxima, estratégica e focada em soluções digitais eficientes.
             </h2>
             <div className="about-values">
               {companyValues.map((value) => (
@@ -27,20 +27,19 @@ export function About(): JSX.Element {
               <span className="hero-card-eyebrow">// nossa origem</span>
               <h3>Reative quer dizer reativar.</h3>
               <p>
-                A gente nasceu olhando pro lado e vendo dezenas de pequenos
-                negócios{' '}
-                <strong>parados no tempo</strong> — não por falta de vontade,
-                mas por falta de tempo, de quem explique, e de quem cobre justo.
+                A <strong>Reative Systems</strong> nasceu ao perceber que muitas empresas tinham potencial para crescer, 
+                mas ainda enfrentavam dificuldades por falta de tempo, 
+                orientação e <strong>soluções acessíveis</strong> para evoluir digitalmente.
               </p>
               <div className="about-pull">
                 "Nosso trabalho não é entregar tecnologia. É devolver tempo pro
                 dono do negócio voltar a olhar pra frente."
               </div>
               <p>
-                Hoje somos <strong>uma equipe enxuta</strong> de desenvolvedores
-                e analistas com experiência em projetos de e-commerce, automação
-                e infraestrutura. Atendemos PMEs de qualquer cidade — remoto ou
-                presencial em Curitiba e região.
+                Hoje somos uma equipe <strong>especializada em desenvolvimento</strong>, em automação e infraestrutura, 
+                com experiência em projetos digitais para empresas de diferentes segmentos.
+                Atendemos negócios de <strong>qualquer lugar do Brasil</strong>, de forma remota, 
+                criando soluções modernas, eficientes e alinhadas às necessidades de cada cliente.
               </p>
             </div>
           </div>
