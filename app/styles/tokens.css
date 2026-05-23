@@ -1,0 +1,101 @@
+/* ============================================
+   TOKENS — variáveis, reset e estilos base
+   ============================================ */
+
+:root {
+  /* Colors — warm neutral base + orange accent */
+  --bg: oklch(0.985 0.005 60);
+  --bg-alt: oklch(0.965 0.008 60);
+  --surface: oklch(1 0 0);
+  --ink: oklch(0.16 0.015 50);
+  --ink-soft: oklch(0.32 0.012 50);
+  --ink-mute: oklch(0.5 0.012 50);
+  --ink-faint: oklch(0.7 0.01 60);
+  --line: oklch(0.9 0.008 60);
+  --line-soft: oklch(0.94 0.006 60);
+
+  /* Brand — orange/red energy */
+  --brand: oklch(0.68 0.19 38);
+  --brand-deep: oklch(0.6 0.2 35);
+  --brand-soft: oklch(0.94 0.04 50);
+  --brand-ink: oklch(0.32 0.14 38);
+
+  /* Dark surfaces */
+  --dark: oklch(0.16 0.015 50);
+  --dark-alt: oklch(0.21 0.015 50);
+  --dark-line: oklch(0.28 0.012 50);
+  --on-dark: oklch(96.968% 0.00499 47.836);
+  --on-dark-soft: oklch(75.049% 0.01253 51.018);
+  --on-dark-mute: oklch(60% 0.012 51);
+
+  /* Type — definido em layout.tsx via next/font, com fallbacks aqui */
+  --font-display:
+    var(--font-display-loaded), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-body-loaded), ui-sans-serif, system-ui, sans-serif;
+  --font-mono:
+    var(--font-mono-loaded), ui-monospace, "SF Mono", Menlo, monospace;
+  --font-logo: var(--font-logo-loaded), ui-sans-serif, system-ui, sans-serif;
+
+  /* Radii */
+  --r-sm: 6px;
+  --r: 10px;
+  --r-lg: 16px;
+  --r-xl: 24px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.04), 0 0 0 1px oklch(0 0 0 / 0.04);
+  --shadow: 0 4px 16px -4px oklch(0 0 0 / 0.08), 0 0 0 1px oklch(0 0 0 / 0.05);
+  --shadow-lg:
+    0 24px 48px -16px oklch(0 0 0 / 0.18), 0 0 0 1px oklch(0 0 0 / 0.05);
+  --shadow-brand: 0 12px 32px -8px oklch(0.68 0.19 38 / 0.35);
+}
+
+/* ============ Reset ============ */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+/* ============ Accessibility ============ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

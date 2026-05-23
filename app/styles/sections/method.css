@@ -1,0 +1,93 @@
+/* ============================================
+   METHOD — timeline "como trabalhamos"
+   ============================================ */
+
+.method-section {
+  background: var(--bg-alt);
+}
+.method-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  position: relative;
+}
+.method-step {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-top: 28px;
+  position: relative;
+}
+.method-step::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--line);
+}
+.method-step::after {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--brand);
+}
+.method-num {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--brand);
+  letter-spacing: 0.12em;
+}
+.method-step h3 {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+.method-step p {
+  font-size: 14.5px;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+.method-duration {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-mute);
+  margin-top: auto;
+  padding-top: 8px;
+  letter-spacing: 0.06em;
+}
+
+/* ============ Responsivo ============ */
+@media (max-width: 1024px) {
+  .method-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+}
+
+@media (max-width: 900px) {
+  .method-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .method-grid {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+  .method-step {
+    padding-top: 22px;
+  }
+}
+
+@media (max-width: 540px) {
+  .method-grid {
+    grid-template-columns: 1fr;
+  }
+}

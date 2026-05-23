@@ -15,12 +15,21 @@ const INITIAL_FORM: ContactFormData = {
   mensagem: '',
 };
 
+const SERVICO_OPCOES = [
+  'Site ou sistema novo',
+  'Automação de processo',
+  'Suporte de TI mensal',
+  'Consultoria / diagnóstico',
+  'Outro / não sei ainda',
+];
+
 export function Contact(): JSX.Element {
   const [form, setForm] = useState<ContactFormData>(INITIAL_FORM);
   const [errors, setErrors] = useState<ContactFormErrors>({});
   const [submitting, setSubmitting] = useState(false);
   const [sent, setSent] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [servicoOpen, setServicoOpen] = useState(false);
 
   const update =
     (field: keyof ContactFormData) =>
@@ -181,20 +190,48 @@ export function Contact(): JSX.Element {
                   </div>
                 </div>
                 <div className="form-field">
-                  <label htmlFor="servico">Sobre o que é? *</label>
-                  <select
-                    id="servico"
-                    value={form.servico}
-                    onChange={update('servico')}
+                <label>Sobre o que é? *</label>
+                <div className="custom-select">
+                  <button
+                    type="button"
+                    className="custom-select-trigger"
+                    onClick={() => setServicoOpen(!servicoOpen)}
+                    aria-expanded={servicoOpen}
                   >
-                    <option value="">Selecione...</option>
-                    <option>Site ou sistema novo</option>
-                    <option>Automação de processo</option>
-                    <option>Suporte de TI mensal</option>
-                    <option>Consultoria / diagnóstico</option>
-                    <option>Outro / não sei ainda</option>
-                  </select>
+                    <span className={form.servico ? '' : 'placeholder'}>
+                      {form.servico || 'Selecione...'}
+                    </span>
+                    <svg
+                      width="16" height="16" viewBox="0 0 24 24"
+                      fill="none" stroke="currentColor" strokeWidth="2"
+                      style={{
+                        transform: servicoOpen ? 'rotate(180deg)' : 'none',
+                        transition: 'transform .2s',
+                      }}
+                    >
+                      <path d="m6 9 6 6 6-6" />
+                    </svg>
+                  </button>
+                  {servicoOpen && (
+                    <ul className="custom-select-list" role="listbox">
+                      {SERVICO_OPCOES.map((opcao) => (
+                        <li
+                          key={opcao}
+                          role="option"
+                          aria-selected={form.servico === opcao}
+                          className={form.servico === opcao ? 'selected' : ''}
+                          onClick={() => {
+                            setForm((prev) => ({ ...prev, servico: opcao }));
+                            setServicoOpen(false);
+                          }}
+                        >
+                          {opcao}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
+              </div>
                 <div className="form-field">
                   <label htmlFor="mensagem">Conta um pouco *</label>
                   <textarea

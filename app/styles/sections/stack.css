@@ -1,0 +1,82 @@
+/* ============================================
+   STACK — grade de tecnologias
+   ============================================ */
+
+.stack-section {
+  background: var(--ink);
+  color: var(--on-dark);
+}
+.stack-section h2 {
+  color: white;
+}
+.stack-section .lede {
+  color: var(--on-dark-soft);
+}
+.stack-section .eyebrow::before {
+  background: var(--brand);
+}
+.stack-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+  margin-top: 32px;
+}
+.stack-item {
+  background: oklch(1 0 0 / 0.03);
+  border: 1px solid oklch(1 0 0 / 0.07);
+  border-radius: var(--r);
+  padding: 20px 16px;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--on-dark);
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+.stack-item:hover {
+  background: oklch(1 0 0 / 0.06);
+  border-color: oklch(1 0 0 / 0.14);
+}
+.stack-cat {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--brand);
+  text-transform: uppercase;
+}
+
+/* ============ Responsivo ============ */
+@media (max-width: 1024px) {
+  .stack-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .stack-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .stack-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .stack-item {
+    padding: 16px 12px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 540px) {
+  .stack-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

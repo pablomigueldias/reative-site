@@ -1,0 +1,139 @@
+/* ============================================
+   ABOUT — seção "quem somos"
+   ============================================ */
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.about-values {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  margin-top: 32px;
+}
+.value {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: 20px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--line);
+}
+.value:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.value-num {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--brand);
+  letter-spacing: 0.05em;
+}
+.value h4 {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.value p {
+  font-size: 14.5px;
+  color: var(--ink-soft);
+  line-height: 1.55;
+}
+
+/* ============ About side panel ============ */
+.about-side {
+  background: var(--ink);
+  color: var(--on-dark);
+  border-radius: var(--r-xl);
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+}
+.about-side::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    600px 300px at 100% 0%,
+    oklch(0.68 0.19 38 / 0.18),
+    transparent 60%
+  );
+}
+.about-side-inner {
+  position: relative;
+  z-index: 1;
+}
+.about-side h3 {
+  color: white;
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+.about-side p {
+  color: var(--on-dark-soft);
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.about-side strong {
+  color: white;
+  font-weight: 600;
+}
+.about-pull {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: -0.015em;
+  color: white;
+  line-height: 1.35;
+  padding: 24px;
+  background: oklch(1 0 0 / 0.04);
+  border-left: 3px solid var(--brand);
+  border-radius: 4px;
+  margin: 24px 0;
+}
+
+/* ============ Responsivo ============ */
+@media (max-width: 1024px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .about-side {
+    padding: 32px;
+  }
+  .about-pull {
+    font-size: 19px;
+    padding: 20px;
+  }
+}
+
+@media (max-width: 900px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+}
+
+@media (max-width: 640px) {
+  .about-side {
+    padding: 24px;
+  }
+  .about-pull {
+    font-size: 17px;
+    padding: 18px;
+    margin: 18px 0;
+  }
+  .value {
+    grid-template-columns: 28px 1fr;
+    gap: 14px;
+    padding-bottom: 22px;
+  }
+  .about-values {
+    gap: 22px;
+  }
+}
