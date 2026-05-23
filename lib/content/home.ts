@@ -204,14 +204,9 @@ export const blogPosts: BlogPost[] = [
 // ============================================
 export const faqItems: FaqItem[] = [
   {
-    question: 'Vocês atendem só em Curitiba ou em qualquer cidade?',
+    question: 'Vocês atendem empresas de qualquer lugar do Brasil? ',
     answer:
-      'Atendemos qualquer lugar do Brasil de forma remota — reuniões por video-call, suporte por WhatsApp e Slack. Em Curitiba e região metropolitana fazemos visita presencial quando o projeto exige.',
-  },
-  {
-    question: 'Como funciona a cobrança? Tem fidelidade?',
-    answer:
-      'Os planos mensais não têm fidelidade obrigatória — você cancela com 30 dias de aviso. Para projetos sob medida (Custom), trabalhamos com escopo fechado e cronograma de pagamento por entregas. Tudo definido no contrato antes de começar.',
+      'Atendemos empresas de todo o Brasil de forma remota, com reuniões online, suporte ágil e acompanhamento próximo durante todo o projeto.',
   },
   {
     question: 'E se eu não souber explicar tecnicamente o que preciso?',
@@ -219,9 +214,9 @@ export const faqItems: FaqItem[] = [
       'Esse é o motivo de existirmos. Na reunião de diagnóstico, a conversa é sobre o seu negócio, não sobre tecnologia. Quem traduz o problema pra solução técnica somos nós — você só precisa contar o que está dando trabalho ou perdendo dinheiro.',
   },
   {
-    question: 'Vocês trabalham com tecnologias específicas ou usam o que for melhor?',
+    question: ' Vocês trabalham com tecnologias específicas ou usam o que for melhor?',
     answer:
-      'Usamos o que resolve o seu problema com menor custo de manutenção. Temos preferência por ferramentas open source e soluções consolidadas (React, Node, Python, n8n, AWS), mas se WordPress for o caminho, é WordPress. Recomendação técnica vem com justificativa por escrito.',
+      'Usamos o que resolve o seu problema com menor custo de manutenção. Temos preferência por ferramentas e soluções consolidadas (React, Node, Python, n8n, AWS), mas se o caminho for outro seguimos por ele. Recomendação técnica vem com justificativa por escrito.',
   },
   {
     question: 'O código que vocês fazem é meu?',
@@ -229,18 +224,23 @@ export const faqItems: FaqItem[] = [
       'Sim. Todo código é versionado em um repositório no seu GitHub (ou no nosso, transferido pra você quando quiser). Senhas, domínio, hospedagem — tudo fica em conta sua. Se um dia você quiser trocar de empresa, leva tudo.',
   },
   {
-    question: 'E se eu não gostar do que vocês entregaram?',
-    answer:
-      'Todos os projetos têm 30 dias de garantia de satisfação. Se algo não funcionou como combinado, refazemos sem custo. Se ainda assim não der certo, devolvemos o pagamento dos itens que não atenderam. Combinado é combinado.',
-  },
-  {
     question: 'Quanto tempo leva pra começar?',
     answer:
-      'Da primeira conversa à proposta: até 3 dias úteis. Da proposta aceita ao kickoff do projeto: normalmente 5 a 10 dias úteis, conforme a complexidade do escopo e a nossa agenda. Para suporte mensal, ativamos em até 48h.',
+      'Da primeira conversa à proposta: até 3 dias úteis dependendo da complexidade aumento o prazo, mais sempre explicado ao cliente. Da proposta aceita ao kickoff do projeto: normalmente 5 a 10 dias úteis, conforme a complexidade do escopo e a nossa agenda. Para suporte mensal, ativamos em até 48h.',
+  },
+  {
+    question: 'Vocês oferecem suporte após a entrega?',
+    answer:
+      'Sim. Continuamos acompanhando o projeto após a entrega para garantir estabilidade, suporte técnico e evolução contínua da solução.',
   },
   {
     question: 'Vocês emitem nota fiscal?',
     answer:
       'Sim, somos PJ regularizada e emitimos NF-e/NFS-e em todos os serviços. Aceitamos pagamento via Pix, boleto, cartão de crédito (com taxa) e transferência. Para empresas, oferecemos faturamento mensal.',
+  },
+  {
+    question: 'Meu projeto é pequeno. Vocês também atendem?',
+    answer:
+      'Sim. Desenvolvemos soluções para empresas de diferentes tamanhos, sempre buscando entregar tecnologia de forma acessível, eficiente e alinhada à necessidade de cada negócio.',
   },
 ];

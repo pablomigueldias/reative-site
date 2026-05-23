@@ -240,15 +240,6 @@ export const services: Record<ServiceSlug, ServiceContent> = {
     ],
     cases: [
       {
-        tag: 'Comércio',
-        title: 'Ataque de ransomware → restauração em 6 horas',
-        problem:
-          'Loja foi infectada num sábado de manhã. Sistema fiscal travou. Sem backup confiável, perderiam o histórico de vendas do mês.',
-        solution:
-          'Backup em nuvem que tínhamos configurado 2 meses antes. Restauramos máquinas, trocamos senhas, treinamos equipe contra phishing.',
-        result: 'De volta no ar em [[6 horas]], zero dado perdido',
-      },
-      {
         tag: 'Escritório',
         title: 'Migração de Hotmail genérico pra e-mail profissional',
         problem:
@@ -256,24 +247,6 @@ export const services: Record<ServiceSlug, ServiceContent> = {
         solution:
           'Compramos domínio, configuramos Google Workspace, migramos histórico, treinamos equipe e configuramos assinatura padrão.',
         result: 'Imagem profissional + [[conformidade LGPD]]',
-      },
-      {
-        tag: 'Indústria',
-        title: 'Suporte preventivo evitou parada de chão de fábrica',
-        problem:
-          'PC do supervisor de produção dava pau toda semana. Cada parada custava cara em produção atrasada.',
-        solution:
-          'Diagnóstico apontou HD com setores ruins. Trocamos antes da falha catastrófica, migramos dados sem perda.',
-        result: 'Zero parada nos [[últimos 8 meses]]',
-      },
-      {
-        tag: 'Saúde',
-        title: 'Adequação de consultório à LGPD',
-        problem:
-          'Clínica armazenava prontuário em pasta compartilhada na rede sem controle de acesso. Risco alto pra LGPD.',
-        solution:
-          'Migramos pra sistema de prontuário com criptografia, configuramos perfis de acesso, escrevemos política interna de uso.',
-        result: 'Conformidade alcançada em [[30 dias]]',
       },
     ],
   },
