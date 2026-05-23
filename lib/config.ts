@@ -14,11 +14,11 @@ export const config = {
 
   contact: {
     whatsappNumber:
-      process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '5500000000000',
+      process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '5511925848819',
     email:
       process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'contato@reativesystems.com.br',
-    phone: '(00) 0000-0000',
-    phoneDigits: '+5500000000000',
+    phone: '(11) 9 2584-8819',
+    phoneDigits: '+5511925848819',
   },
 
   api: {
@@ -27,8 +27,8 @@ export const config = {
   },
 
   social: {
-    linkedin: '#',
-    instagram: '#',
+    linkedin: 'https://www.linkedin.com/company/reative-systems/',
+    instagram: 'https://www.instagram.com/reativesystems/',
   },
 
   analytics: {
