@@ -14,8 +14,7 @@ export function Footer(): JSX.Element {
               <span className="brand-name">{config.site.name}</span>
             </Link>
             <p>
-              Tecnologia que reativa o seu negócio. Desenvolvimento, automação
-              e suporte de TI para PMEs.
+              Tecnologia que reativa o seu negócio. Desenvolvimento, automação e suporte de TI.
             </p>
             <div style={{ display: 'flex', gap: 12, marginTop: 20 }}>
               <a
