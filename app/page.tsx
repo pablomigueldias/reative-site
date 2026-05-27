@@ -22,7 +22,6 @@ export default function HomePage(): JSX.Element {
         <Method />
         <About />
         <Stack />
-        <Blog />
         <FAQ />
         <Contact />
       </main>
