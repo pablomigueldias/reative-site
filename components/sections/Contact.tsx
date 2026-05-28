@@ -94,7 +94,7 @@ export function Contact(): JSX.Element {
                 </div>
                 <div className="contact-channel-text">
                   <strong>Agendar reunião de 30 min</strong>
-                  <span>Quartas e sextas · video-call gratuita</span>
+                  <span>Quartas e sextas · videoconferência gratuita</span>
                 </div>
                 <div className="contact-channel-arrow">
                   <Icon.Arrow />

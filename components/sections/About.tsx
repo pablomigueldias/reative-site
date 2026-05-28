@@ -36,7 +36,7 @@ export function About(): JSX.Element {
                 dono do negócio voltar a olhar pra frente."
               </div>
               <p>
-                Hoje somos uma equipe <strong>especializada em desenvolvimento</strong>, em automação e infraestrutura, 
+                A Reative Systems atua com especialistas parceiros conforme a necessidade do projeto. <strong>em desenvolvimento</strong>, <strong>em automação</strong> <strong>e em infraestrutura</strong>, 
                 com experiência em projetos digitais para empresas de diferentes segmentos.
                 Atendemos negócios de <strong>qualquer lugar do Brasil</strong>, de forma remota, 
                 criando soluções modernas, eficientes e alinhadas às necessidades de cada cliente.

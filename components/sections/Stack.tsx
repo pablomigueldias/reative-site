@@ -6,7 +6,7 @@ export function Stack(): JSX.Element {
       <div className="wrap">
         <div className="section-head">
           <div>
-            <span className="eyebrow">Stack moderna, escolha consciente</span>
+            <span className="eyebrow">Tecnologia sólida e escalável</span>
             <h2>A gente usa ferramenta porque resolve, não porque é nova.</h2>
           </div>
           <p className="lede">

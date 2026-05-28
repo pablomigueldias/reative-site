@@ -13,7 +13,7 @@ export function Hero(): JSX.Element {
               <br />
               <span className="strike">complica</span>{' '}
               <span className="accent">descomplica</span>
-              <br />o seu dia-a-dia.
+              <br />o seu dia a dia.
             </h1>
             <p className="hero-lede">
               Desenvolvimento, automações e suporte para pequenas e médias
@@ -76,7 +76,7 @@ export function Hero(): JSX.Element {
                   </div>
                   <div className="hero-channel-text">
                     <strong>Agendar 30 min</strong>
-                    <span>Quarta a sexta · video-call</span>
+                    <span>Quarta a sexta · videoconferência</span>
                   </div>
                   <div className="hero-channel-arrow">→</div>
                 </a>
@@ -95,7 +95,7 @@ export function Hero(): JSX.Element {
                     />
                   </div>
                   <div className="hero-channel-text">
-                    <strong>Mandar áudio</strong>
+                    <strong>Falar no WhatsApp</strong>
                     <span>Resposta em até 4h úteis</span>
                   </div>
                   <div className="hero-channel-arrow">→</div>
