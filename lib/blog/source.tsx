@@ -11,8 +11,6 @@ import type { ReactNode } from 'react';
 import { ArticleMarkdown } from '@/components/post/ArticleMarkdown';
 import type { ApiPost, ApiPostListItem } from '@/lib/api/blog';
 import { fetchPost, fetchPosts } from '@/lib/api/blog';
-import { blogPosts } from '@/lib/content/home';
-import { blogPostsFull, getAllPostSlugs, getPostBySlug } from '@/lib/content/posts';
 import { buildToc } from '@/lib/blog/toc';
 
 export interface PostCard {
@@ -103,45 +101,11 @@ function apiToArticle(p: ApiPost): PostArticle {
   };
 }
 
-// ── Fallback local (conteúdo hardcoded) ──────────────────────────
-function localCards(): PostCard[] {
-  return blogPosts.map((p) => ({
-    slug: p.slug,
-    title: p.title,
-    excerpt: p.excerpt,
-    category: p.category,
-    date: p.date,
-    readTime: p.readTime,
-    coverClass: p.coverClass,
-  }));
-}
-
-function localArticle(slug: string): PostArticle | null {
-  const p = getPostBySlug(slug);
-  if (!p) return null;
-  return {
-    slug: p.slug,
-    title: p.title,
-    excerpt: p.excerpt,
-    category: p.category,
-    date: p.date,
-    readTime: p.readTime,
-    coverClass: p.coverClass,
-    author: 'Equipe Reative',
-    toc: p.toc,
-    body: p.body,
-    lang: 'pt-BR',
-    seo: { keywords: [], noindex: false, metaDescription: p.excerpt },
-  };
-}
-
-// ── API pública do módulo ────────────────────────────────────────
+// ── API pública do módulo (SÓ conteúdo real do studio — sem fallback) ─────────
 
 export async function getPostCards(opts?: { limit?: number }): Promise<PostCard[]> {
   const remoto = await fetchPosts(opts?.limit ?? 50);
-  if (remoto && remoto.length > 0) return remoto.map(apiToCard);
-  const locais = localCards();
-  return opts?.limit ? locais.slice(0, opts.limit) : locais;
+  return (remoto ?? []).map(apiToCard);
 }
 
 /**
@@ -161,14 +125,12 @@ export async function getRelated(
 
 export async function getArticle(slug: string): Promise<PostArticle | null> {
   const remoto = await fetchPost(slug);
-  if (remoto) return apiToArticle(remoto);
-  return localArticle(slug);
+  return remoto ? apiToArticle(remoto) : null;
 }
 
 export async function getArticleSlugs(): Promise<string[]> {
   const remoto = await fetchPosts();
-  if (remoto && remoto.length > 0) return remoto.map((p) => p.slug);
-  return getAllPostSlugs();
+  return (remoto ?? []).map((p) => p.slug);
 }
 
 /** Categorias presentes (nome + contagem), ordenadas por frequência. */
@@ -197,18 +159,9 @@ export async function getPostMetas(): Promise<
   { slug: string; updatedAt?: string; category?: string | null }[]
 > {
   const remoto = await fetchPosts(50);
-  if (remoto && remoto.length > 0) {
-    return remoto.map((p) => ({
-      slug: p.slug,
-      updatedAt: p.updated_at ?? p.published_at ?? undefined,
-      category: p.category,
-    }));
-  }
-  return Object.values(blogPostsFull).map((p) => ({
+  return (remoto ?? []).map((p) => ({
     slug: p.slug,
+    updatedAt: p.updated_at ?? p.published_at ?? undefined,
     category: p.category,
   }));
 }
-
-// Reexporta pra quem precisar listar tudo localmente.
-export { blogPostsFull };
