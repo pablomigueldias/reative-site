@@ -25,8 +25,6 @@ function initials(name: string): string {
 
 export function PostPage({ post, relacionados = [] }: PostPageProps): JSX.Element {
   const cta = ctaDoPost(post.category);
-  const agendar = config.contact.scheduleUrl;
-  const agendarExterno = /^https?:\/\//.test(agendar);
   return (
     <>
       <Nav external />
@@ -133,20 +131,9 @@ export function PostPage({ post, relacionados = [] }: PostPageProps): JSX.Elemen
                   <h3>{cta.titulo}</h3>
                   <p>{cta.texto}</p>
                   <div className="article-cta-actions">
-                    {agendarExterno ? (
-                      <a
-                        href={agendar}
-                        className="btn btn-primary"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <Icon.Calendar className="btn-icon" /> Agendar 30 min
-                      </a>
-                    ) : (
-                      <Link href={agendar} className="btn btn-primary">
-                        <Icon.Calendar className="btn-icon" /> Agendar 30 min
-                      </Link>
-                    )}
+                    <Link href="/#contato" className="btn btn-primary">
+                      Entrar em contato
+                    </Link>
                     <a
                       href={whatsappUrl(
                         `Oi! Li "${post.title}" no blog da Reative e quero conversar.`,

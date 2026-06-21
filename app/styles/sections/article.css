@@ -500,7 +500,12 @@
   gap: 12px;
   flex-wrap: wrap;
 }
-/* Botões legíveis sobre o fundo escuro do CTA */
+/* Botões legíveis sobre o fundo escuro do CTA.
+   (o CTA fica dentro de .article-prose, cujo `a { color: laranja }` deixava o
+   texto do botão laranja invisível no fundo laranja — forçamos branco aqui.) */
+.article-cta-actions .btn-primary {
+  color: #fff;
+}
 .article-cta-actions .btn-ghost {
   background: oklch(1 0 0 / 0.06);
   border: 1px solid oklch(1 0 0 / 0.2);
