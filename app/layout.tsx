@@ -107,7 +107,50 @@ export default function RootLayout({
       lang="pt-BR"
       className={`${fontDisplay.variable} ${fontBody.variable} ${fontMono.variable} ${fontLogo.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        {children}
+        <script
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Organization',
+              '@id': `${config.site.url}/#organization`,
+              name: config.site.name,
+              url: config.site.url,
+              logo: `${config.site.url}/logo-reative-512.png`,
+              description: config.site.description,
+              email: config.contact.email,
+              sameAs: [config.social.linkedin, config.social.instagram],
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'WebSite',
+              '@id': `${config.site.url}/#website`,
+              name: config.site.name,
+              url: config.site.url,
+              publisher: { '@id': `${config.site.url}/#organization` },
+              inLanguage: 'pt-BR',
+              // Habilita a caixa de busca de sitelinks no Google (busca do blog).
+              potentialAction: {
+                '@type': 'SearchAction',
+                target: {
+                  '@type': 'EntryPoint',
+                  urlTemplate: `${config.site.url}/blog?q={search_term_string}`,
+                },
+                'query-input': 'required name=search_term_string',
+              },
+            }),
+          }}
+        />
+      </body>
     </html>
   );
 }

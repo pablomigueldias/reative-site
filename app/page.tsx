@@ -10,8 +10,14 @@ import { Pricing } from '@/components/sections/Pricing';
 import { Services } from '@/components/sections/Services';
 import { Stack } from '@/components/sections/Stack';
 import { TrustStrip } from '@/components/sections/TrustStrip';
+import { getPostCards } from '@/lib/blog/source';
 
-export default function HomePage(): JSX.Element {
+// ISR: a home revalida pra refletir posts novos publicados no studio.
+export const revalidate = 300;
+
+export default async function HomePage(): Promise<JSX.Element> {
+  // Home mostra só os 3 mais recentes; a navegação completa vive em /blog.
+  const posts = await getPostCards({ limit: 3 });
   return (
     <>
       <Nav />
@@ -23,6 +29,7 @@ export default function HomePage(): JSX.Element {
         <About />
         <Stack />
         <FAQ />
+        <Blog posts={posts} />
         <Contact />
       </main>
       <Footer />

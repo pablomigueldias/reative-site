@@ -1,36 +1,61 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { PostPage } from '@/components/post/PostPage';
-import { getAllPostSlugs, getPostBySlug } from '@/lib/content/posts';
+import { getArticle, getArticleSlugs, getRelated } from '@/lib/blog/source';
+import { SITE } from '@/lib/blog/seo';
 
 interface PageProps {
   params: { slug: string };
 }
 
-export function generateStaticParams(): { slug: string }[] {
-  return getAllPostSlugs().map((slug) => ({ slug }));
+// ISR: revalida páginas já geradas; slugs novos do studio entram on-demand.
+export const revalidate = 600;
+export const dynamicParams = true;
+
+export async function generateStaticParams(): Promise<{ slug: string }[]> {
+  const slugs = await getArticleSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
-export function generateMetadata({ params }: PageProps): Metadata {
-  const post = getPostBySlug(params.slug);
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const post = await getArticle(params.slug);
   if (!post) return {};
 
+  const description = post.seo.metaDescription ?? post.excerpt;
+  const ogImg = post.seo.ogImage ?? post.coverUrl ?? undefined;
   return {
     title: post.title,
-    description: post.excerpt,
+    description,
+    keywords: post.seo.keywords.length ? post.seo.keywords : undefined,
+    authors: [{ name: post.author }],
+    alternates: { canonical: `${SITE}/blog/${post.slug}` },
+    robots: post.seo.noindex ? { index: false, follow: true } : undefined,
     openGraph: {
-      title: post.title,
-      description: post.excerpt,
+      title: post.seo.ogTitle ?? post.title,
+      description: post.seo.ogDescription ?? description,
       type: 'article',
-      publishedTime: post.date,
+      url: `${SITE}/blog/${post.slug}`,
+      publishedTime: post.publishedAt,
+      modifiedTime: post.updatedAt,
+      authors: [post.author],
+      section: post.category ?? undefined,
+      tags: post.seo.keywords.length ? post.seo.keywords : undefined,
+      images: ogImg ? [{ url: ogImg }] : undefined,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.seo.ogTitle ?? post.title,
+      description: post.seo.ogDescription ?? description,
+      images: ogImg ? [ogImg] : undefined,
     },
   };
 }
 
-export default function PostRoute({ params }: PageProps): JSX.Element {
-  const post = getPostBySlug(params.slug);
+export default async function PostRoute({ params }: PageProps): Promise<JSX.Element> {
+  const post = await getArticle(params.slug);
   if (!post) {
     notFound();
   }
-  return <PostPage post={post} />;
+  const relacionados = await getRelated(post.slug, post.category, 3);
+  return <PostPage post={post} relacionados={relacionados} />;
 }

@@ -3,13 +3,26 @@ import { Footer } from '@/components/layout/Footer';
 import { Nav } from '@/components/layout/Nav';
 import { Icon } from '@/components/ui/Icon';
 import { whatsappUrl } from '@/lib/config';
-import type { BlogPostFull } from '@/lib/content/posts';
+import type { PostArticle, PostCard } from '@/lib/blog/source';
+import {
+  SITE,
+  blogPostingJsonLd,
+  breadcrumbJsonLd,
+  categorySlug,
+} from '@/lib/blog/seo';
 
 interface PostPageProps {
-  post: BlogPostFull;
+  post: PostArticle;
+  relacionados?: PostCard[];
 }
 
-export function PostPage({ post }: PostPageProps): JSX.Element {
+/** Iniciais do autor pro avatar (ex.: "Pablo Dias" → "PD"). */
+function initials(name: string): string {
+  const parts = name.trim().split(/\s+/);
+  return ((parts[0]?.[0] ?? '') + (parts[1]?.[0] ?? '')).toUpperCase() || 'RS';
+}
+
+export function PostPage({ post, relacionados = [] }: PostPageProps): JSX.Element {
   return (
     <>
       <Nav external />
@@ -17,14 +30,28 @@ export function PostPage({ post }: PostPageProps): JSX.Element {
       <main>
         <header className="article-hero">
           <div className="wrap">
-            <Link href="/#blog" className="article-back">
-              <Icon.Arrow
-                style={{ transform: 'rotate(180deg)', width: 16, height: 16 }}
-              />
-              Voltar para o blog
-            </Link>
+            <nav className="crumbs" aria-label="Trilha">
+              <Link href="/">Início</Link>
+              <span>/</span>
+              <Link href="/blog">Blog</Link>
+              {post.category ? (
+                <>
+                  <span>/</span>
+                  <Link href={`/blog/categoria/${categorySlug(post.category)}`}>
+                    {post.category}
+                  </Link>
+                </>
+              ) : null}
+            </nav>
             <div className="article-meta-top">
-              <span className="article-cat">{post.category}</span>
+              {post.category ? (
+                <Link
+                  className="article-cat"
+                  href={`/blog/categoria/${categorySlug(post.category)}`}
+                >
+                  {post.category}
+                </Link>
+              ) : null}
               <span>·</span>
               <span>{post.date.toUpperCase()}</span>
               <span>·</span>
@@ -33,9 +60,9 @@ export function PostPage({ post }: PostPageProps): JSX.Element {
             <h1>{post.title}</h1>
             <p className="article-lede">{post.excerpt}</p>
             <div className="article-author">
-              <div className="author-avatar">RS</div>
+              <div className="author-avatar">{initials(post.author)}</div>
               <div className="author-info">
-                <strong>Equipe Reative</strong>
+                <strong>{post.author}</strong>
                 <span>Time de tecnologia · Reative Systems</span>
               </div>
               <div className="author-share">
@@ -62,9 +89,20 @@ export function PostPage({ post }: PostPageProps): JSX.Element {
         </header>
 
         <div className="article-cover">
-          <div className="article-cover-inner">
-            // {post.slug.toUpperCase().replace(/-/g, '_')}.md
-          </div>
+          {post.coverUrl ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              className="article-cover-img"
+              src={post.coverUrl}
+              alt={post.coverAlt ?? post.title}
+              fetchPriority="high"
+              decoding="async"
+            />
+          ) : (
+            <div className={`article-cover-inner ${post.coverClass ?? ''}`}>
+              // {post.slug.toUpperCase().replace(/-/g, '_')}.md
+            </div>
+          )}
         </div>
 
         <article className="article-body">
@@ -113,9 +151,67 @@ export function PostPage({ post }: PostPageProps): JSX.Element {
             </div>
           </div>
         </article>
+
+        {relacionados.length > 0 && (
+          <section className="related">
+            <div className="wrap">
+              <h2 className="related-title">Continue lendo</h2>
+              <div className="related-grid">
+                {relacionados.map((r) => (
+                  <Link className="related-card" href={`/blog/${r.slug}`} key={r.slug}>
+                    {r.coverUrl ? (
+                      <div className="related-cover">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={r.coverUrl} alt={r.coverAlt ?? r.title} />
+                      </div>
+                    ) : (
+                      <div className={`related-cover ${r.coverClass ?? ''}`} />
+                    )}
+                    <div className="related-body">
+                      <span className="related-cat">{r.category}</span>
+                      <h3>{r.title}</h3>
+                      <span className="related-link">
+                        Ler artigo <Icon.Arrow width={14} height={14} />
+                      </span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
       </main>
 
       <Footer />
+
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(blogPostingJsonLd(post)),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbJsonLd([
+              { name: 'Início', url: SITE },
+              { name: 'Blog', url: `${SITE}/blog` },
+              ...(post.category
+                ? [
+                    {
+                      name: post.category,
+                      url: `${SITE}/blog/categoria/${categorySlug(post.category)}`,
+                    },
+                  ]
+                : []),
+              { name: post.title, url: `${SITE}/blog/${post.slug}` },
+            ]),
+          ),
+        }}
+      />
     </>
   );
 }
