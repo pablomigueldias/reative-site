@@ -107,7 +107,26 @@ export default function RootLayout({
       lang="pt-BR"
       className={`${fontDisplay.variable} ${fontBody.variable} ${fontMono.variable} ${fontLogo.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        {children}
+        <script
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Organization',
+              '@id': `${config.site.url}/#organization`,
+              name: config.site.name,
+              url: config.site.url,
+              logo: `${config.site.url}/logo-reative-512.png`,
+              description: config.site.description,
+              email: config.contact.email,
+              sameAs: [config.social.linkedin, config.social.instagram],
+            }),
+          }}
+        />
+      </body>
     </html>
   );
 }
