@@ -12,6 +12,10 @@ export const config = {
     url: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
   },
 
+  // Autor exibido nos posts do blog (assinatura + JSON-LD). Em UM lugar só →
+  // troca aqui (ou NEXT_PUBLIC_AUTHOR no Vercel) e vale pra todos os posts.
+  author: process.env.NEXT_PUBLIC_AUTHOR || 'Pablo Ortiz',
+
   contact: {
     whatsappNumber:
       process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '5511925848819',

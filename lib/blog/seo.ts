@@ -25,7 +25,8 @@ export function categoryUrl(name: string): string {
 /** JSON-LD `BlogPosting` — habilita rich results do artigo no Google. */
 export function blogPostingJsonLd(post: PostArticle): Record<string, unknown> {
   const url = postUrl(post.slug);
-  const ehPessoa = (post.author ?? '').trim().includes(' ');
+  const autor = config.author;
+  const ehPessoa = autor.trim().includes(' ');
   return {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -36,7 +37,7 @@ export function blogPostingJsonLd(post: PostArticle): Record<string, unknown> {
     dateModified: post.updatedAt ?? post.publishedAt,
     author: {
       '@type': ehPessoa ? 'Person' : 'Organization',
-      name: post.author || config.site.name,
+      name: autor,
     },
     publisher: {
       '@type': 'Organization',

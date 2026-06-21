@@ -64,9 +64,9 @@ export function PostPage({ post, relacionados = [] }: PostPageProps): JSX.Elemen
             <h1>{post.title}</h1>
             <p className="article-lede">{post.excerpt}</p>
             <div className="article-author">
-              <div className="author-avatar">{initials(post.author)}</div>
+              <div className="author-avatar">{initials(config.author)}</div>
               <div className="author-info">
-                <strong>{post.author}</strong>
+                <strong>{config.author}</strong>
                 <span>Time de tecnologia · Reative Systems</span>
               </div>
               <div className="author-share">
