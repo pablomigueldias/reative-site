@@ -1,34 +1,44 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { PostPage } from '@/components/post/PostPage';
-import { getAllPostSlugs, getPostBySlug } from '@/lib/content/posts';
+import { getArticle, getArticleSlugs } from '@/lib/blog/source';
 
 interface PageProps {
   params: { slug: string };
 }
 
-export function generateStaticParams(): { slug: string }[] {
-  return getAllPostSlugs().map((slug) => ({ slug }));
+// ISR: revalida páginas já geradas; slugs novos do studio entram on-demand.
+export const revalidate = 600;
+export const dynamicParams = true;
+
+export async function generateStaticParams(): Promise<{ slug: string }[]> {
+  const slugs = await getArticleSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
-export function generateMetadata({ params }: PageProps): Metadata {
-  const post = getPostBySlug(params.slug);
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const post = await getArticle(params.slug);
   if (!post) return {};
 
+  const description = post.seo.metaDescription ?? post.excerpt;
   return {
     title: post.title,
-    description: post.excerpt,
+    description,
+    keywords: post.seo.keywords.length ? post.seo.keywords : undefined,
+    robots: post.seo.noindex ? { index: false, follow: true } : undefined,
     openGraph: {
-      title: post.title,
-      description: post.excerpt,
+      title: post.seo.ogTitle ?? post.title,
+      description: post.seo.ogDescription ?? description,
       type: 'article',
-      publishedTime: post.date,
+      publishedTime: post.publishedAt,
+      modifiedTime: post.updatedAt,
+      images: post.seo.ogImage ? [{ url: post.seo.ogImage }] : undefined,
     },
   };
 }
 
-export default function PostRoute({ params }: PageProps): JSX.Element {
-  const post = getPostBySlug(params.slug);
+export default async function PostRoute({ params }: PageProps): Promise<JSX.Element> {
+  const post = await getArticle(params.slug);
   if (!post) {
     notFound();
   }

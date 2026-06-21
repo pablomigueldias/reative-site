@@ -52,6 +52,13 @@
     oklch(0.88 0.04 50) 12px 24px
   );
 }
+.post-cover-img img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 .post-cover-tag {
   position: absolute;
   top: 16px;

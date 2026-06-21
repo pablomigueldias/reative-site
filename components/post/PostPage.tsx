@@ -3,10 +3,16 @@ import { Footer } from '@/components/layout/Footer';
 import { Nav } from '@/components/layout/Nav';
 import { Icon } from '@/components/ui/Icon';
 import { whatsappUrl } from '@/lib/config';
-import type { BlogPostFull } from '@/lib/content/posts';
+import type { PostArticle } from '@/lib/blog/source';
 
 interface PostPageProps {
-  post: BlogPostFull;
+  post: PostArticle;
+}
+
+/** Iniciais do autor pro avatar (ex.: "Pablo Dias" → "PD"). */
+function initials(name: string): string {
+  const parts = name.trim().split(/\s+/);
+  return ((parts[0]?.[0] ?? '') + (parts[1]?.[0] ?? '')).toUpperCase() || 'RS';
 }
 
 export function PostPage({ post }: PostPageProps): JSX.Element {
@@ -33,9 +39,9 @@ export function PostPage({ post }: PostPageProps): JSX.Element {
             <h1>{post.title}</h1>
             <p className="article-lede">{post.excerpt}</p>
             <div className="article-author">
-              <div className="author-avatar">RS</div>
+              <div className="author-avatar">{initials(post.author)}</div>
               <div className="author-info">
-                <strong>Equipe Reative</strong>
+                <strong>{post.author}</strong>
                 <span>Time de tecnologia · Reative Systems</span>
               </div>
               <div className="author-share">
@@ -62,9 +68,18 @@ export function PostPage({ post }: PostPageProps): JSX.Element {
         </header>
 
         <div className="article-cover">
-          <div className="article-cover-inner">
-            // {post.slug.toUpperCase().replace(/-/g, '_')}.md
-          </div>
+          {post.coverUrl ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              className="article-cover-img"
+              src={post.coverUrl}
+              alt={post.coverAlt ?? post.title}
+            />
+          ) : (
+            <div className={`article-cover-inner ${post.coverClass ?? ''}`}>
+              // {post.slug.toUpperCase().replace(/-/g, '_')}.md
+            </div>
+          )}
         </div>
 
         <article className="article-body">
