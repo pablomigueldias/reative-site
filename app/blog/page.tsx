@@ -4,6 +4,7 @@ import { Nav } from '@/components/layout/Nav';
 import { BlogIndex } from '@/components/blog/BlogIndex';
 import { getPostCards } from '@/lib/blog/source';
 import { config } from '@/lib/config';
+import { SITE, breadcrumbJsonLd, itemListJsonLd } from '@/lib/blog/seo';
 
 // ISR: a lista revalida sozinha quando o studio publica algo novo.
 export const revalidate = 300;
@@ -30,6 +31,19 @@ export default async function BlogIndexPage({
 }: PageProps): Promise<JSX.Element> {
   // Servidor busca (SSR/ISR, bom pro SEO); o BlogIndex filtra/busca no cliente.
   const posts = await getPostCards({ limit: 50 });
+  const blogLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Blog',
+    '@id': `${SITE}/blog#blog`,
+    name: 'Blog — Reative Systems',
+    url: `${SITE}/blog`,
+    inLanguage: 'pt-BR',
+    publisher: { '@id': `${SITE}/#organization` },
+  };
+  const breadcrumb = breadcrumbJsonLd([
+    { name: 'Início', url: SITE },
+    { name: 'Blog', url: `${SITE}/blog` },
+  ]);
   return (
     <>
       <Nav external />
@@ -41,6 +55,14 @@ export default async function BlogIndexPage({
         />
       </main>
       <Footer />
+      {[blogLd, breadcrumb, itemListJsonLd(posts)].map((ld, i) => (
+        <script
+          key={i}
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }}
+        />
+      ))}
     </>
   );
 }
