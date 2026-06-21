@@ -18,6 +18,7 @@ const NAV_LINKS = [
   { hash: '#servicos', label: 'Serviços' },
   { hash: '#metodo', label: 'Como trabalhamos' },
   { hash: '#sobre', label: 'Sobre' },
+  { hash: '#blog', label: 'Blog' },
   { hash: '#contato', label: 'Contato' },
 ] as const;
 

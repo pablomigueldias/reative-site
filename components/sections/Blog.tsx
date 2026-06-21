@@ -1,8 +1,17 @@
 import Link from 'next/link';
 import { Icon } from '@/components/ui/Icon';
-import { blogPosts } from '@/lib/content/home';
+import type { PostCard } from '@/lib/blog/source';
 
-export function Blog(): JSX.Element {
+interface BlogProps {
+  posts: PostCard[];
+}
+
+/**
+ * Seção/grid de posts. Presentacional (recebe `posts` por prop) pra poder ser
+ * reusada na home e na página `/blog` — quem busca os dados é o server component
+ * que a renderiza (`await getPostCards()`).
+ */
+export function Blog({ posts }: BlogProps): JSX.Element {
   return (
     <section className="blog-section" id="blog">
       <div className="wrap">
@@ -12,16 +21,24 @@ export function Blog(): JSX.Element {
             <h2>Tecnologia de forma simples, clara e pensada para a realidade do seu negócio.</h2>
           </div>
           <p className="lede">
-           Sem termos complicados ou promessas exageradas. Conteúdo direto, com exemplos reais, 
+           Sem termos complicados ou promessas exageradas. Conteúdo direto, com exemplos reais,
            para quem precisa decidir entre investir em tecnologia ou continuar fazendo tudo manualmente.
           </p>
         </div>
         <div className="blog-grid">
-          {blogPosts.map((post) => (
+          {posts.map((post) => (
             <Link className="post" href={`/blog/${post.slug}`} key={post.slug}>
-              <div className={`post-cover ${post.coverClass}`}>
-                <div className="post-cover-tag">{post.category}</div>
-              </div>
+              {post.coverUrl ? (
+                <div className="post-cover post-cover-img">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={post.coverUrl} alt={post.coverAlt ?? post.title} />
+                  <div className="post-cover-tag">{post.category}</div>
+                </div>
+              ) : (
+                <div className={`post-cover ${post.coverClass ?? ''}`}>
+                  <div className="post-cover-tag">{post.category}</div>
+                </div>
+              )}
               <div className="post-body">
                 <div className="post-meta">
                   <span>{post.date}</span>
