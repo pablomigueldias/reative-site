@@ -171,5 +171,44 @@ export async function getArticleSlugs(): Promise<string[]> {
   return getAllPostSlugs();
 }
 
+/** Categorias presentes (nome + contagem), ordenadas por frequência. */
+export async function getCategoriesWithCount(): Promise<
+  { name: string; count: number }[]
+> {
+  const cards = await getPostCards({ limit: 50 });
+  const conta = new Map<string, number>();
+  for (const c of cards) {
+    const nome = c.category?.trim();
+    if (nome) conta.set(nome, (conta.get(nome) ?? 0) + 1);
+  }
+  return [...conta.entries()]
+    .map(([name, count]) => ({ name, count }))
+    .sort((a, b) => b.count - a.count);
+}
+
+/** Posts de uma categoria (por nome exato). */
+export async function getPostsByCategory(name: string): Promise<PostCard[]> {
+  const cards = await getPostCards({ limit: 50 });
+  return cards.filter((c) => c.category === name);
+}
+
+/** Metadados crus (slug + datas ISO) de todos os posts — pro sitemap. */
+export async function getPostMetas(): Promise<
+  { slug: string; updatedAt?: string; category?: string | null }[]
+> {
+  const remoto = await fetchPosts(50);
+  if (remoto && remoto.length > 0) {
+    return remoto.map((p) => ({
+      slug: p.slug,
+      updatedAt: p.updated_at ?? p.published_at ?? undefined,
+      category: p.category,
+    }));
+  }
+  return Object.values(blogPostsFull).map((p) => ({
+    slug: p.slug,
+    category: p.category,
+  }));
+}
+
 // Reexporta pra quem precisar listar tudo localmente.
 export { blogPostsFull };

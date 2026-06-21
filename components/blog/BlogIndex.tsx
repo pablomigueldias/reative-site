@@ -1,8 +1,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import Link from 'next/link';
-import { Icon } from '@/components/ui/Icon';
+import { PostGrid } from '@/components/blog/PostGrid';
 import type { PostCard } from '@/lib/blog/source';
 
 interface BlogIndexProps {
@@ -108,35 +107,7 @@ export function BlogIndex({ posts }: BlogIndexProps): JSX.Element {
             categoria.
           </p>
         ) : (
-          <div className="blog-grid">
-            {filtrados.map((post) => (
-              <Link className="post" href={`/blog/${post.slug}`} key={post.slug}>
-                {post.coverUrl ? (
-                  <div className="post-cover post-cover-img">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={post.coverUrl} alt={post.coverAlt ?? post.title} />
-                    <div className="post-cover-tag">{post.category}</div>
-                  </div>
-                ) : (
-                  <div className={`post-cover ${post.coverClass ?? ''}`}>
-                    <div className="post-cover-tag">{post.category}</div>
-                  </div>
-                )}
-                <div className="post-body">
-                  <div className="post-meta">
-                    <span>{post.date}</span>
-                    <span>·</span>
-                    <span>{post.readTime} de leitura</span>
-                  </div>
-                  <h3>{post.title}</h3>
-                  <p className="post-excerpt">{post.excerpt}</p>
-                  <span className="post-link">
-                    Ler artigo <Icon.Arrow width={14} height={14} />
-                  </span>
-                </div>
-              </Link>
-            ))}
-          </div>
+          <PostGrid posts={filtrados} />
         )}
       </div>
     </section>

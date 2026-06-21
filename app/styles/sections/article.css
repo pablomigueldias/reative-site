@@ -605,6 +605,33 @@
   }
 }
 
+/* ===== Breadcrumbs (trilha) ===== */
+.crumbs {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--ink-mute);
+  margin-bottom: 18px;
+}
+.crumbs a {
+  color: var(--ink-soft);
+  text-decoration: none;
+}
+.crumbs a:hover {
+  color: var(--brand);
+}
+.crumbs span[aria-current] {
+  color: var(--ink);
+}
+a.article-cat {
+  text-decoration: none;
+}
+a.article-cat:hover {
+  color: var(--brand);
+}
+
 /* ===== Posts relacionados (fim do artigo) ===== */
 .related {
   border-top: 1px solid var(--line);

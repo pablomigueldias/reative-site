@@ -4,6 +4,12 @@ import { Nav } from '@/components/layout/Nav';
 import { Icon } from '@/components/ui/Icon';
 import { whatsappUrl } from '@/lib/config';
 import type { PostArticle, PostCard } from '@/lib/blog/source';
+import {
+  SITE,
+  blogPostingJsonLd,
+  breadcrumbJsonLd,
+  categorySlug,
+} from '@/lib/blog/seo';
 
 interface PostPageProps {
   post: PostArticle;
@@ -24,14 +30,28 @@ export function PostPage({ post, relacionados = [] }: PostPageProps): JSX.Elemen
       <main>
         <header className="article-hero">
           <div className="wrap">
-            <Link href="/#blog" className="article-back">
-              <Icon.Arrow
-                style={{ transform: 'rotate(180deg)', width: 16, height: 16 }}
-              />
-              Voltar para o blog
-            </Link>
+            <nav className="crumbs" aria-label="Trilha">
+              <Link href="/">Início</Link>
+              <span>/</span>
+              <Link href="/blog">Blog</Link>
+              {post.category ? (
+                <>
+                  <span>/</span>
+                  <Link href={`/blog/categoria/${categorySlug(post.category)}`}>
+                    {post.category}
+                  </Link>
+                </>
+              ) : null}
+            </nav>
             <div className="article-meta-top">
-              <span className="article-cat">{post.category}</span>
+              {post.category ? (
+                <Link
+                  className="article-cat"
+                  href={`/blog/categoria/${categorySlug(post.category)}`}
+                >
+                  {post.category}
+                </Link>
+              ) : null}
               <span>·</span>
               <span>{post.date.toUpperCase()}</span>
               <span>·</span>
@@ -161,6 +181,35 @@ export function PostPage({ post, relacionados = [] }: PostPageProps): JSX.Elemen
       </main>
 
       <Footer />
+
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(blogPostingJsonLd(post)),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbJsonLd([
+              { name: 'Início', url: SITE },
+              { name: 'Blog', url: `${SITE}/blog` },
+              ...(post.category
+                ? [
+                    {
+                      name: post.category,
+                      url: `${SITE}/blog/categoria/${categorySlug(post.category)}`,
+                    },
+                  ]
+                : []),
+              { name: post.title, url: `${SITE}/blog/${post.slug}` },
+            ]),
+          ),
+        }}
+      />
     </>
   );
 }
