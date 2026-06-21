@@ -1,11 +1,13 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { PostGrid } from '@/components/blog/PostGrid';
 import type { PostCard } from '@/lib/blog/source';
 
 interface BlogIndexProps {
   posts: PostCard[];
+  initialQ?: string;
+  initialCat?: string;
 }
 
 const TODOS = 'Todos';
@@ -31,9 +33,23 @@ function SearchIcon(): JSX.Element {
  * sobre os posts já carregados (instantâneo). Pro cliente/recrutador achar
  * conteúdo sem scroll infinito.
  */
-export function BlogIndex({ posts }: BlogIndexProps): JSX.Element {
-  const [q, setQ] = useState('');
-  const [cat, setCat] = useState<string>(TODOS);
+export function BlogIndex({
+  posts,
+  initialQ = '',
+  initialCat = '',
+}: BlogIndexProps): JSX.Element {
+  const [q, setQ] = useState(initialQ);
+  const [cat, setCat] = useState<string>(initialCat || TODOS);
+
+  // Reflete busca/categoria na URL (sem recarregar) → buscas compartilháveis e
+  // compatível com a SearchAction do Google (/blog?q=...).
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (q.trim()) params.set('q', q.trim());
+    if (cat !== TODOS) params.set('cat', cat);
+    const qs = params.toString();
+    window.history.replaceState(null, '', qs ? `/blog?${qs}` : '/blog');
+  }, [q, cat]);
 
   // Categorias com contagem (deriva dos posts), ordenadas por frequência.
   const categorias = useMemo(() => {

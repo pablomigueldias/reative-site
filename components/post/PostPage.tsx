@@ -95,6 +95,8 @@ export function PostPage({ post, relacionados = [] }: PostPageProps): JSX.Elemen
               className="article-cover-img"
               src={post.coverUrl}
               alt={post.coverAlt ?? post.title}
+              fetchPriority="high"
+              decoding="async"
             />
           ) : (
             <div className={`article-cover-inner ${post.coverClass ?? ''}`}>

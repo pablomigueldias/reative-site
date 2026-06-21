@@ -126,6 +126,30 @@ export default function RootLayout({
             }),
           }}
         />
+        <script
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'WebSite',
+              '@id': `${config.site.url}/#website`,
+              name: config.site.name,
+              url: config.site.url,
+              publisher: { '@id': `${config.site.url}/#organization` },
+              inLanguage: 'pt-BR',
+              // Habilita a caixa de busca de sitelinks no Google (busca do blog).
+              potentialAction: {
+                '@type': 'SearchAction',
+                target: {
+                  '@type': 'EntryPoint',
+                  urlTemplate: `${config.site.url}/blog?q={search_term_string}`,
+                },
+                'query-input': 'required name=search_term_string',
+              },
+            }),
+          }}
+        />
       </body>
     </html>
   );
