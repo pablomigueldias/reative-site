@@ -447,21 +447,23 @@
 
 /* ============ Article CTA ============ */
 .article-cta {
-  background: var(--ink);
+  background: linear-gradient(160deg, var(--ink), oklch(0.18 0.02 260));
   color: var(--on-dark);
   border-radius: var(--r-xl);
-  padding: 40px;
-  margin: 56px 0 0;
+  border: 1px solid oklch(1 0 0 / 0.08);
+  padding: 44px;
+  margin: 64px 0 0;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 24px 60px -28px oklch(0.68 0.19 38 / 0.45);
 }
 .article-cta::before {
   content: "";
   position: absolute;
   inset: 0;
   background: radial-gradient(
-    500px 200px at 100% 100%,
-    oklch(0.68 0.19 38 / 0.18),
+    560px 240px at 110% 120%,
+    oklch(0.68 0.19 38 / 0.28),
     transparent 60%
   );
 }
@@ -469,22 +471,44 @@
   position: relative;
   z-index: 1;
 }
+.article-cta-eyebrow {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: oklch(0.78 0.16 45);
+  margin-bottom: 12px;
+}
 .article-cta h3 {
   color: white;
-  font-size: 26px;
-  font-weight: 500;
-  margin-bottom: 8px;
+  font-size: 28px;
+  line-height: 1.2;
+  font-weight: 600;
+  margin-bottom: 10px;
+  max-width: 22ch;
 }
 .article-cta p {
   color: var(--on-dark-soft);
-  margin-bottom: 24px;
-  max-width: 50ch;
+  margin-bottom: 28px;
+  max-width: 54ch;
   font-size: 15px;
+  line-height: 1.6;
 }
 .article-cta-actions {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
+}
+/* Botões legíveis sobre o fundo escuro do CTA */
+.article-cta-actions .btn-ghost {
+  background: oklch(1 0 0 / 0.06);
+  border: 1px solid oklch(1 0 0 / 0.2);
+  color: #fff;
+}
+.article-cta-actions .btn-ghost:hover {
+  background: oklch(1 0 0 / 0.12);
+  border-color: oklch(1 0 0 / 0.35);
 }
 
 /* ============ Tags ============ */

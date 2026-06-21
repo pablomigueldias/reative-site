@@ -2,7 +2,8 @@ import Link from 'next/link';
 import { Footer } from '@/components/layout/Footer';
 import { Nav } from '@/components/layout/Nav';
 import { Icon } from '@/components/ui/Icon';
-import { whatsappUrl } from '@/lib/config';
+import { config, whatsappUrl } from '@/lib/config';
+import { ctaDoPost } from '@/lib/blog/cta';
 import type { PostArticle, PostCard } from '@/lib/blog/source';
 import {
   SITE,
@@ -23,6 +24,9 @@ function initials(name: string): string {
 }
 
 export function PostPage({ post, relacionados = [] }: PostPageProps): JSX.Element {
+  const cta = ctaDoPost(post.category);
+  const agendar = config.contact.scheduleUrl;
+  const agendarExterno = /^https?:\/\//.test(agendar);
   return (
     <>
       <Nav external />
@@ -123,31 +127,39 @@ export function PostPage({ post, relacionados = [] }: PostPageProps): JSX.Elemen
             <div className="article-prose">
               {post.body}
 
-              <div className="article-cta">
+              <aside className="article-cta">
                 <div className="article-cta-inner">
-                  <h3>A sua planilha já é um sistema?</h3>
-                  <p>
-                    Em 30 minutos a gente faz um diagnóstico gratuito do seu
-                    negócio e mostra por onde tirar a operação do Excel — mesmo
-                    que você não nos contrate.
-                  </p>
+                  <span className="article-cta-eyebrow">Reative Systems</span>
+                  <h3>{cta.titulo}</h3>
+                  <p>{cta.texto}</p>
                   <div className="article-cta-actions">
+                    {agendarExterno ? (
+                      <a
+                        href={agendar}
+                        className="btn btn-primary"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Icon.Calendar className="btn-icon" /> Agendar 30 min
+                      </a>
+                    ) : (
+                      <Link href={agendar} className="btn btn-primary">
+                        <Icon.Calendar className="btn-icon" /> Agendar 30 min
+                      </Link>
+                    )}
                     <a
                       href={whatsappUrl(
-                        'Oi! Acabei de ler o artigo no blog da Reative e quero conversar',
+                        `Oi! Li "${post.title}" no blog da Reative e quero conversar.`,
                       )}
-                      className="btn btn-primary"
+                      className="btn btn-ghost"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <Icon.WhatsApp className="btn-icon" /> Conversar no WhatsApp
+                      <Icon.WhatsApp className="btn-icon" /> WhatsApp
                     </a>
-                    <Link href="/#agendar" className="btn btn-ghost">
-                      <Icon.Calendar className="btn-icon" /> Agendar 30 min
-                    </Link>
                   </div>
                 </div>
-              </div>
+              </aside>
             </div>
           </div>
         </article>

@@ -19,6 +19,9 @@ export const config = {
       process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'contato@reativesystems.com.br',
     phone: '(11) 9 2584-8819',
     phoneDigits: '+5511925848819',
+    // Link de agendamento (Calendly/Cal.com/etc.). Troque em UM lugar — no Vercel
+    // (NEXT_PUBLIC_SCHEDULE_URL) — e TODOS os posts/CTAs atualizam juntos.
+    scheduleUrl: process.env.NEXT_PUBLIC_SCHEDULE_URL || '/#agendar',
   },
 
   api: {
