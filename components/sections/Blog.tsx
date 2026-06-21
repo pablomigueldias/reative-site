@@ -54,6 +54,11 @@ export function Blog({ posts }: BlogProps): JSX.Element {
             </Link>
           ))}
         </div>
+        <div className="blog-all">
+          <Link className="btn btn-ghost" href="/blog">
+            Ver todos os artigos <Icon.Arrow width={16} height={16} />
+          </Link>
+        </div>
       </div>
     </section>
   );

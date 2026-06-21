@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { PostPage } from '@/components/post/PostPage';
-import { getArticle, getArticleSlugs } from '@/lib/blog/source';
+import { getArticle, getArticleSlugs, getRelated } from '@/lib/blog/source';
 
 interface PageProps {
   params: { slug: string };
@@ -42,5 +42,6 @@ export default async function PostRoute({ params }: PageProps): Promise<JSX.Elem
   if (!post) {
     notFound();
   }
-  return <PostPage post={post} />;
+  const relacionados = await getRelated(post.slug, post.category, 3);
+  return <PostPage post={post} relacionados={relacionados} />;
 }

@@ -3,10 +3,11 @@ import { Footer } from '@/components/layout/Footer';
 import { Nav } from '@/components/layout/Nav';
 import { Icon } from '@/components/ui/Icon';
 import { whatsappUrl } from '@/lib/config';
-import type { PostArticle } from '@/lib/blog/source';
+import type { PostArticle, PostCard } from '@/lib/blog/source';
 
 interface PostPageProps {
   post: PostArticle;
+  relacionados?: PostCard[];
 }
 
 /** Iniciais do autor pro avatar (ex.: "Pablo Dias" → "PD"). */
@@ -15,7 +16,7 @@ function initials(name: string): string {
   return ((parts[0]?.[0] ?? '') + (parts[1]?.[0] ?? '')).toUpperCase() || 'RS';
 }
 
-export function PostPage({ post }: PostPageProps): JSX.Element {
+export function PostPage({ post, relacionados = [] }: PostPageProps): JSX.Element {
   return (
     <>
       <Nav external />
@@ -128,6 +129,35 @@ export function PostPage({ post }: PostPageProps): JSX.Element {
             </div>
           </div>
         </article>
+
+        {relacionados.length > 0 && (
+          <section className="related">
+            <div className="wrap">
+              <h2 className="related-title">Continue lendo</h2>
+              <div className="related-grid">
+                {relacionados.map((r) => (
+                  <Link className="related-card" href={`/blog/${r.slug}`} key={r.slug}>
+                    {r.coverUrl ? (
+                      <div className="related-cover">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={r.coverUrl} alt={r.coverAlt ?? r.title} />
+                      </div>
+                    ) : (
+                      <div className={`related-cover ${r.coverClass ?? ''}`} />
+                    )}
+                    <div className="related-body">
+                      <span className="related-cat">{r.category}</span>
+                      <h3>{r.title}</h3>
+                      <span className="related-link">
+                        Ler artigo <Icon.Arrow width={14} height={14} />
+                      </span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
       </main>
 
       <Footer />

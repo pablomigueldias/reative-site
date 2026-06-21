@@ -16,7 +16,8 @@ import { getPostCards } from '@/lib/blog/source';
 export const revalidate = 300;
 
 export default async function HomePage(): Promise<JSX.Element> {
-  const posts = await getPostCards();
+  // Home mostra só os 3 mais recentes; a navegação completa vive em /blog.
+  const posts = await getPostCards({ limit: 3 });
   return (
     <>
       <Nav />

@@ -137,10 +137,26 @@ function localArticle(slug: string): PostArticle | null {
 
 // ── API pública do módulo ────────────────────────────────────────
 
-export async function getPostCards(): Promise<PostCard[]> {
-  const remoto = await fetchPosts();
+export async function getPostCards(opts?: { limit?: number }): Promise<PostCard[]> {
+  const remoto = await fetchPosts(opts?.limit ?? 50);
   if (remoto && remoto.length > 0) return remoto.map(apiToCard);
-  return localCards();
+  const locais = localCards();
+  return opts?.limit ? locais.slice(0, opts.limit) : locais;
+}
+
+/**
+ * Posts relacionados a um artigo: prioriza a MESMA categoria (exclui o próprio),
+ * e completa com os mais recentes se faltar. Pro leitor continuar navegando.
+ */
+export async function getRelated(
+  slug: string,
+  category?: string | null,
+  limit = 3,
+): Promise<PostCard[]> {
+  const todos = (await getPostCards({ limit: 50 })).filter((p) => p.slug !== slug);
+  const mesma = category ? todos.filter((p) => p.category === category) : [];
+  const resto = todos.filter((p) => !mesma.includes(p));
+  return [...mesma, ...resto].slice(0, limit);
 }
 
 export async function getArticle(slug: string): Promise<PostArticle | null> {

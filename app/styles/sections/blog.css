@@ -141,3 +141,74 @@
     font-size: 18px;
   }
 }
+
+/* ===== CTA "ver todos" na home ===== */
+.blog-all {
+  margin-top: 32px;
+  display: flex;
+  justify-content: center;
+}
+
+/* ===== Índice /blog: busca + filtros ===== */
+.blog-index .section-head {
+  margin-bottom: 24px;
+}
+.blog-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+.blog-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 10px 14px;
+  color: var(--ink-mute);
+  min-width: 240px;
+  flex: 1;
+  max-width: 360px;
+}
+.blog-search input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font: inherit;
+  color: var(--ink);
+  width: 100%;
+}
+.blog-chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.chip {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink-soft);
+  border-radius: 999px;
+  padding: 7px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.chip:hover {
+  border-color: var(--brand);
+  color: var(--ink);
+}
+.chip.is-active {
+  background: var(--brand);
+  border-color: var(--brand);
+  color: #fff;
+}
+.blog-empty {
+  text-align: center;
+  color: var(--ink-mute);
+  padding: 48px 0;
+}
